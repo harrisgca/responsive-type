@@ -1,0 +1,87 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans|Oxygen);
+
+html {
+  height: 100%;
+}
+body {
+  padding: 60px;
+  height: 100%;
+  font-family: 'Oxygen', sans-serif;
+  display: flex;
+  flex-flow: column;
+}
+h1 {
+  font-size: 70px;
+  @media all and (max-width:1640px) {
+    .responsive(font-size,60,70,1366,1640);
+  }
+  @media all and (max-width:1366px) {
+    .responsive(font-size,50,60,1024,1366);
+  }
+  @media all and (max-width:1024px) {
+    .responsive(font-size,40,50,768,1024);
+  }
+  @media all and (max-width:768px) {
+    font-size: 40px;
+  }
+}
+p {
+  font-weight: 300;
+  font-size: 24px;
+  @media all and (max-width:1640px) {
+    .responsive(font-size,21,24,1360,1640);
+  }
+  @media all and (max-width:1366px) {
+    .responsive(font-size,18,21,1024,1366);
+  }
+  @media all and (max-width:1024px) {
+    .responsive(font-size,16,18,768,1024);
+  }
+  @media all and (max-width:768px) {
+    font-size: 16px;
+  }
+
+  &.tracker{
+    color: gray;
+  }
+}
+
+.tracker{
+  border: 1px solid black;
+  display: inline-block;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.red{
+  color: #FF5959;
+}
+
+section{
+  &:first-child{
+    margin-bottom: 50px;
+    p{
+      border: 2px solid blue;
+    }
+  }
+  &:nth-child(2){
+    margin-bottom: 35px;
+  }
+}
+
+.responsive(@property, @minValue, @maxValue, @minWidth, @maxWidth) {
+  // See http://archive.is/fcf6f for details
+  //@property = CSS property you want to scale
+  //@minFont = minimum font size for range
+  //@maxFont = maximum font size for range
+  //@minWidth = lowest resolution in pixels for range
+  //@maxWidth = highest resolution in pixels for range
+  //example: .responsive(46,53,1680,1920) will evenly scale a font
+  //between 43px and 53px between the ranges of 1680px and 1920px
+  @valueDiff: @maxValue - @minValue;
+  @widthDiff: @maxWidth - @minWidth;
+  @vw: 100 * @valueDiff / @widthDiff;
+  @px: @minValue - (@minWidth * @valueDiff / @widthDiff);
+  @fallBack: (@minValue + @maxValue) / 2;
+  @{property}: calc(~"@{px}px + @{vw}vw");
+}

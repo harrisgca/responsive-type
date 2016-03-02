@@ -21,3 +21,4 @@ insecure                # Allow all DB writes from clients (for prototyping)
 lauricio:less-autoprefixer
 ccan:cssreset
 coffeescript
+reactive-dict
